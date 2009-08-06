@@ -1,0 +1,4 @@
+{ mount | grep --silent '/mnt/foo'; } || mount /mnt/foo
+
+# No console beeps ever, anywhere, at all
+setterm -blength 0

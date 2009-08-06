@@ -1,0 +1,4 @@
+is_running()
+{
+    ps | grep $1 | awk '{print $1}'
+}
