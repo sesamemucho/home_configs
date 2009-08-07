@@ -164,18 +164,25 @@
 
 ;; Programming
 
-(if (not (featurep 'l-w32))
+(if (featurep 'l-cygwin)
     (progn
-      (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/site-lisp/w3m/") t)
-      (if (= emacs-major-version 23)
-          (require 'w3m-load)
-        (require 'w3m))
-      )
-  (progn
-    (add-to-list 'load-path (concat (expand-file-name "~/") "local/usr/share/emacs/site-lisp/w3m/") t)
-    (require 'w3m)
-    )
-  )
+      (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
+))
+
+(require 'w3m)
+
+;; (if (not (featurep 'l-w32))
+;;     (progn
+;;       (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/site-lisp/w3m/") t)
+;;       (if (= emacs-major-version 23)
+;;           (require 'w3m-load)
+;;         (require 'w3m))
+;;       )
+;;   (progn
+;;     (add-to-list 'load-path (concat (expand-file-name "~/") "local/usr/share/emacs/site-lisp/w3m/") t)
+;;     (require 'w3m)
+;;     )
+;;   )
 
 ; Anything
 ;; l-w32 because anything-config loads w3m
@@ -340,14 +347,17 @@
 ;; Per-project or temporary mappings
 (require 'ssmm-project)
 
-(set-frame-font "Inconsolata-11")
-(if (featurep 'ssmm-site-moto)
+;;(if (featurep 'ssmm-site-moto)
+(if (featurep 'l-cygwin)
     (progn
       ;(set-default-font "7x14")
       (add-to-list 'default-frame-alist '(font . "-Misc-Fixed-Medium-R-Normal--14-130-75-75-C-70-ISO8859-1"))
       ;(set-default-font "-Misc-Fixed-Medium-R-Normal--14-130-75-75-C-70-ISO8859-1")
       (set-frame-font "-Misc-Fixed-Medium-R-Normal--14-130-75-75-C-70-ISO8859-1")
       )
+  (progn
+    (set-frame-font "Inconsolata-11")
+    )
   )
 
 (defun ssmm:null-font-lock-function (mode)
