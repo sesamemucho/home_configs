@@ -120,7 +120,8 @@
              )))
 
      (setq org-agenda-custom-commands
-           '(("X" agenda ""
+           '(
+             ("X" agenda ""
               ((ps-number-of-columns 1)
                (ps-landscape-mode t)
                (org-agenda-ndays 1)
@@ -151,6 +152,14 @@
              ;;   (tags "office"))
              ;;  nil
              ;;  ("~/views/office.ps"))
+             ;; ("Z" "TD" ((todo "recur"))
+             ;;  ((ps-number-of-columns 1)
+             ;;   (ps-landscape-mode t)
+             ;;   (org-agenda-ndays 1)
+             ;;   (org-agenda-prefix-format " [ ] ")
+             ;;   (org-agenda-with-colors nil)
+             ;;   (org-agenda-remove-tags t))
+             ;;  ("~/temp/agenda.ps"))
              ))
 
 (defun org-export-icalendar ()
