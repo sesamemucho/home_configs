@@ -5,16 +5,6 @@ sys=`uname -o`
 test -f ~/.profile.d/$sys &&  . ~/.profile.d/$sys
 
 is_running ssh-agent || { eval `ssh-agent -s`; }
-is_running gpg-agent || { gpg-agent --daemon --enable-ssh-support -v -v --log-file=${HOME}/g.log \
-    --write-env-file "${HOME}/.gpg-agent-info"; }
-
-if [ -f "${HOME}/.gpg-agent-info" ]; then
-    . "${HOME}/.gpg-agent-info"
-    export GPG_AGENT_INFO
-    export SSH_AUTH_SOCK
-    export SSH_AGENT_PID
-fi
-
 is_running emacs || { emacs --daemon >& ~/.emacsstart.log; }
 export EDITOR="emacsclient -c"
 
