@@ -17,7 +17,8 @@ function listmunge {
     fi
 
     # In case lname was empty to begin with, trim orphan ':' as appropriate
-    eval $lname=`echo $foo | sed -e 's/^://' -e 's/:$//' -e 's/ /\\ /g'`
+    blarf="`echo "$foo" | sed -e 's/^://' -e 's/:$//' -e 's/ /\\ /g'`"
+    eval "$lname=\"$blarf\""
 }
 
 
