@@ -3,10 +3,13 @@
 (require 'cl) ; a rare necessary use of REQUIRE
 (defvar *emacs-load-start* (current-time))
 
-(defconst local-top-dir (concat (expand-file-name "~/") "lemacs/")
+(defconst ssmm:home (expand-file-name "~/")
+  "Home directory")
+
+(defconst local-top-dir (concat ssmm:home "lemacs/")
   "Absolute path for local emacs customizations.")
 
-(defconst local-user-top-dir (concat (expand-file-name "~/") "local/")
+(defconst local-user-top-dir (concat ssmm:home "local/")
   "Absolute path for local emacs customizations.")
 
 (add-to-list 'load-path local-top-dir)
@@ -18,7 +21,9 @@
 					;we're running on, and
 					;(possibly) which
 					;machine. This file should
-					;only set variables.
+					;only set variables, and
+					;initialize directory
+					;variables.
 (require 'ssmm-initial)
 
 (message "My .emacs loaded in %ds" (destructuring-bind (hi lo ms) (current-time)
