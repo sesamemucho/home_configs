@@ -13,7 +13,8 @@
  '(pgg-passphrase-cache-expiry 12000)
  '(remember-annotation-functions (quote (org-remember-annotation)))
  '(remember-handler-functions (quote (org-remember-handler)))
- '(safe-local-variable-values (quote ((eval set-frame-font "Inconsolata-10") (c-indentation-style . bsd)))))
+ '(safe-local-eval-forms (quote ((add-hook (quote write-file-hooks) (quote time-stamp)) (text-scale-decrease 1))))
+ '(safe-local-variable-values (quote ((c-indentation-style . bsd)))))
 (custom-set-faces
   ;; custom-set-faces was added by Custom.
   ;; If you edit it by hand, you could mess it up, so be careful.
