@@ -1,18 +1,4 @@
 ;
-(add-to-list 'load-path (concat (expand-file-name "~/") "local/site-lisp/") t)
-
-(defconst local-pkg-dir (concat local-top-dir "packages/")
-  "Absolute path for local downloaded emacs packages.")
-
-;(add-to-list 'load-path local-pkg-dir t)
-(add-to-list 'load-path (concat local-pkg-dir "misc/") t)
-
-;; Moving packages to ~/local
-(add-to-list 'Info-default-directory-list (concat local-user-top-dir "info/"))
-(add-to-list 'Info-default-directory-list (concat local-user-top-dir "share/info/"))
-(defconst local-share-top (concat local-user-top-dir "share/emacs/site-lisp/"))
-(add-to-list 'load-path local-share-top)
-
 (if (featurep 'l-w32)
     (progn
       (require 'cygwin-mount)
