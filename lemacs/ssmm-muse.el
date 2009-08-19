@@ -8,9 +8,9 @@
 (require 'muse-texinfo)
 (require 'muse-docbook)
 
-; Doesn't seem useful, currently
-; *.muse -> *.html , but *.txt -> *.txt.html
-; Also, may want muse to do something else when publishing .txt files
+;; Doesn't seem useful, currently
+;; *.muse -> *.html , but *.txt -> *.txt.html
+;; Also, may want muse to do something else when publishing .txt files
 ;; ;; muse-mode on *.txt files, if a #title or sect. header is on top 4 lines
 ;; ;; from http://www.emacswiki.org/emacs/RuiAlmeida
 ;; (add-hook 'text-mode-hook
@@ -26,7 +26,7 @@
 
 (setq muse-project-alist
       '(("vcinfo" ("~/Projects/web/vcinfo" :default "index")
-         ;(:base "html" :path (concat (getenv "DATA") "/vcinfo"))
+                                        ;(:base "html" :path (concat (getenv "DATA") "/vcinfo"))
          (:base "html" :path "/home/big/Data/vcinfo")
          (:base "pdf" :path (concat (getenv "DATA") "/vcinfo/pdf")))))
 

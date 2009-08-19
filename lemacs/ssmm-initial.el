@@ -61,7 +61,8 @@
 (require 'ssmm-pim)
 
 ;; Muse
-(require 'ssmm-muse)
+;; May not be installed on a given system
+(autoload 'muse-mode "ssmm-muse" "Muse" t)
 
 ;; Icicles
 (add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
