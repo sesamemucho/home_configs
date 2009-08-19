@@ -5,9 +5,9 @@
 set -x
 here=`pwd`
 
-emacs -batch -q -f batch-byte-compile *el
-
 cp -v dot-emacs ~/.emacs
+
+emacs -batch -q -f batch-byte-compile *el
 
 # misc
 cd packages/misc
