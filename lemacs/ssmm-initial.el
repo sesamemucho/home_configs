@@ -179,8 +179,11 @@
       )
   )
 
-(autoload 'git-blame-mode "git-blame"
-  "Minor mode for incremental blame for Git." t)
+;; (autoload 'git-blame-mode "git-blame"
+;;   "Minor mode for incremental blame for Git." t)
+;; Trying out git-mode
+;; try out vc-git-mode some more
+;;(add-to-list 'load-path (concat local-pkg-dir "git-mode") t)
 
 (defconst moto-c-style
 	     '(
