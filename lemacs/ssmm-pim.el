@@ -75,8 +75,8 @@
 
 ;;      ))
 
-(defconst org-directory "~/org/pim/")
-(defconst org-default-notes-file (concat org-directory "nlug.org.gpg"))
+(defvar org-directory "~/org/pim/")
+(defvar org-default-notes-file (concat org-directory "nlug.org.gpg"))
 
 (defvar org-agenda-files '(
                            "~/org/pim/todo.org.gpg"

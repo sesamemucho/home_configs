@@ -38,11 +38,19 @@
   (add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
   (add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
   (add-to-list 'load-path (concat local-pkg-dir "anything"))
-)
+  (if (featurep 'l-cygwin)
+      (progn
+        (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
+        ))
+  )
 (add-to-list 'load-path (concat local-pkg-dir "versor/lisp/") t)
 (add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
 (add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
 (add-to-list 'load-path (concat local-pkg-dir "anything"))
+(if (featurep 'l-cygwin)
+    (progn
+      (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
+))
 
 (require 'versor)
 (require 'languide)
@@ -160,10 +168,6 @@
 
 ;; Programming
 
-(if (featurep 'l-cygwin)
-    (progn
-      (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
-))
 
 (require 'w3m)
 
@@ -279,6 +283,21 @@
 ; Anything
 (require 'anything-config)
 
+;; unit-testing
+(defvar ssmm:unittest:unit-test-command "python test_fb.py"
+  "*Command for ssmm:unittest:run-unit-test")
+
+(defun ssmm:unittest:run-unit-test ()
+  (interactive)
+
+  (switch-to-buffer-other-window "*shell*")
+  (goto-char (point-max))
+  (insert ssmm:unittest:unit-test-command)
+  (comint-send-input)
+  )
+
+(global-set-key [(f10)] 'ssmm:unittest:run-unit-test)
+
 ;; Custom defuns
 (require 'ssmm-defuns)
 
@@ -341,9 +360,6 @@
 
 (global-set-key [(f12)] 'dabbrev-expand)
 
-;; Per-project or temporary mappings
-(require 'ssmm-project)
-
 (if (featurep 'l-cygwin)
     (progn
       ;(set-default-font "7x14")
@@ -385,5 +401,22 @@
       (display-time)
       )
   )
+
+;; Per-project or temporary mappings
+;; Look for a file named ~/.lemacs.d/<location>.el, and evaluate
+;; it. This should probably only be used for add-to-list kinds of
+;; things that don't rate getting pulled into an ssmm-*.el
+;; file. Currently, I only have written this for one file, but it
+;; should work with more (say, change the ".el" to "*.el").
+(mapc
+ (lambda (boop) (with-temp-buffer
+                  (insert-file-contents boop)
+                  (eval-buffer)))
+ (file-expand-wildcards
+  (concat ssmm:home ".lemacs.d/"
+          (replace-regexp-in-string "[ \t\n]*" "" (shell-command-to-string "uname -n"))
+          ".el")))
+
+(require 'ssmm-project)
 
 (provide 'ssmm-initial)

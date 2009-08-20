@@ -73,9 +73,11 @@
 
 )
 
+(defvar ssmm:loc (or (getenv "SSMM_LOC") "unset"))
+
 (cond
- ((and (getenv "USERDNSDOMAIN") (string-match ".MOT.COM" (getenv "USERDNSDOMAIN")) t)
-  (provide 'ssmm-site-moto)
+ ((and (getenv "SSMM_LOC") (string-match "extm" (getenv "SSMM_LOC")) t)
+  (provide 'ssmm-site-extm)
   )
 )
 

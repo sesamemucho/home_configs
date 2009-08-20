@@ -59,5 +59,6 @@ elif [[ ${USERDOMAIN:-none} = "DS" ]]; then
 else
     loc=elsewhere
 fi
+export SSMM_LOC=$loc
 test -f ~/.bash.d/$loc &&  . ~/.bash.d/$loc
 
