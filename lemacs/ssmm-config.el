@@ -1,20 +1,38 @@
 ;;-*- Mode: Emacs-Lisp -*-   ;Comment that puts emacs into lisp mode
 
+(defvar *emacs-load-start* (current-time))
+
+(defconst ssmm:home (expand-file-name "~/")
+  "Home directory")
+
+(defconst local-top-dir (concat ssmm:home "lemacs/")
+  "Absolute path for local emacs customizations.")
+
+(defconst local-user-top-dir (concat ssmm:home "local/")
+  "Absolute path for local emacs customizations.")
+
+(add-to-list 'load-path local-top-dir)
+
+(defvar explicit-shell-file-name)
+
+(setq custom-file (concat local-top-dir "customize.el"))
+(load custom-file)
+
 (defun ssmm:is-arch-hattori ()
   (interactive)
   (let ((uname (shell-command-to-string "uname -a")))
     (and (string-match "hattori" uname) (string-match "ARCH" uname))
     ))
 
-(setq ssmm:special-key [(apps)])
-(setq ssmm:special-key-ctrl [(control apps)])
+(defvar ssmm:special-key [(apps)])
+(defvar ssmm:special-key-ctrl [(control apps)])
 ;(set-frame-parameter nil 'font-backend '(xft))
 (cond
  ((string-match "windows" (symbol-name system-type))
   (setenv "EMACS_NT" "t")
   (cd ssmm:home)
-  (setq  explicit-shell-file-name "c:/cygwin/bin/bash")
-  (setq  shell-file-name "c:/cygwin/bin/bash")
+  (setq explicit-shell-file-name "c:/cygwin/bin/bash")
+  (setq shell-file-name "c:/cygwin/bin/bash")
   (add-to-list 'exec-path "c:/cygwin/usr/local/bin")
   (add-to-list 'exec-path "c:/cygwin/usr/bin")
   (add-to-list 'exec-path "c:/cygwin/bin")
@@ -31,7 +49,7 @@
   (add-to-list 'Info-default-directory-list "c:/cygwin/usr/share/info/")
 
   (setq grep-command "C:\\cygwin\\bin\\grep.exe -nH -e ")
-  (setq woman-manpath (quote ("C:/cygwin/usr/man" "C:/cygwin/usr/share/man" "C:/cygwin/usr/local/man")))
+  (defvar woman-manpath (quote ("C:/cygwin/usr/man" "C:/cygwin/usr/share/man" "C:/cygwin/usr/local/man")))
 
   ;(setq shell-file-name "bash")
   ;(setq explicit-shell-file-name "bash")
@@ -86,11 +104,11 @@
 ;; should work with more (say, change the ".el" to "*.el"). The
 ;; 'replace-regexp-in-string' is there because the "uname -n" command
 ;; returns with a newline after the machine name.
-(mapcar
+(mapc
  (lambda (boop) (with-temp-buffer
                   (insert-file-contents boop)
                   (eval-buffer)))
- (file-expand-wildcards 
+ (file-expand-wildcards
   (concat ssmm:home ".lemacs.d/"
           (replace-regexp-in-string "[ \t\n]*" "" (shell-command-to-string "uname -n"))
           ".el")))

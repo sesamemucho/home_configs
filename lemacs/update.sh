@@ -7,7 +7,9 @@ here=`pwd`
 
 cp -v dot-emacs ~/.emacs
 
-emacs -batch -q -f batch-byte-compile *el
+emacs -batch -q -f batch-byte-compile ssmm-config.el
+
+emacs -batch -q -l ssmm-config.el -f batch-byte-compile `ls *.el | egrep -v ssm-config`
 
 # misc
 cd packages/misc

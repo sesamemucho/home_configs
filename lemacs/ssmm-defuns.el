@@ -31,6 +31,7 @@
   (beginning-of-line 2))
 
 ;; from http://www.emacs.uniyar.ac.ru/doc/em24h/emacs098.htm#Heading262
+(declare-function w32-select-font "ext:foo")
 (if (eq window-system 'w32)        ; emacs 20 & up
     (defun insert-x-style-font()
       "Insert a string in the X format which describes a font the user can select from the Windows font selector."
@@ -86,6 +87,7 @@
   (ssmm:to-wide-line 'backward 80)
   )
 
+(defvar ssmm:buffer-of-choice)
 (defun ssmm:select-buffer-of-choice ()
   "Selects current buffer as buffer-of-choice (see ssmm:switch-to-buffer-of-choice)."
   (interactive)

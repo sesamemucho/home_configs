@@ -1,4 +1,5 @@
 ;
+(declare-function cygwin-mount-activate "ext:cygwin-mount" nil)
 (if (featurep 'l-w32)
     (progn
       (require 'cygwin-mount)
@@ -32,22 +33,31 @@
 ;see if needed (require 'rst)
 
 ;see if needed (require 'popup-ruler)
-
+(eval-when-compile
+  (add-to-list 'load-path (concat local-pkg-dir "versor/lisp/") t)
+  (add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
+  (add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
+  (add-to-list 'load-path (concat local-pkg-dir "anything"))
+)
 (add-to-list 'load-path (concat local-pkg-dir "versor/lisp/") t)
+(add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
+(add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
+(add-to-list 'load-path (concat local-pkg-dir "anything"))
+
 (require 'versor)
 (require 'languide)
 ;(versor-setup)
 (versor-setup 'keypad 'keypad-misc 'modal 'text-in-code 'menu)
 ;; preset the dimensions for some modes
 (setq versor-mode-current-levels
-      (mapcar 'versor-mode-levels-triplet
-              '(
-                (emacs-lisp-mode "structural" "exprs")
-                (lisp-interaction-mode "structural" "exprs")
-                (c-mode "program" "statement-parts")
-                (text-mode "cartesian" "lines")
-                (html-helper-mode "text" "words")
-                )))
+  (mapcar 'versor-mode-levels-triplet
+          '(
+            (emacs-lisp-mode "structural" "exprs")
+            (lisp-interaction-mode "structural" "exprs")
+            (c-mode "program" "statement-parts")
+            (text-mode "cartesian" "lines")
+            (html-helper-mode "text" "words")
+            )))
 
 ;(require 'backup-dir)
 ;(setq backup-by-copying-when-linked t)
@@ -65,7 +75,6 @@
 (autoload 'muse-mode "ssmm-muse" "Muse" t)
 
 ;; Icicles
-(add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
 (if window-system
     (require 'icicles)
 )
@@ -186,7 +195,7 @@
 ;; try out vc-git-mode some more
 ;;(add-to-list 'load-path (concat local-pkg-dir "git-mode") t)
 
-(defconst moto-c-style
+(defconst m-c-style
 	     '(
 	       'ellemtel
 	       (c-basic-offset . 2)
@@ -197,7 +206,7 @@
 	       ))
 
 (defun ssmm:c-mode-setup ()
-  (c-add-style "MOTOROLA" moto-c-style t))
+  (c-add-style "M" m-c-style t))
 
 (add-hook 'c-mode-hook 'ssmm:c-mode-setup)
 
@@ -221,7 +230,6 @@
 
 ;;; perlnow (and template)
 
-(add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
 
 (autoload 'perlnow "perlnow")
 (autoload 'template "template")
@@ -269,7 +277,6 @@
 (global-set-key "\C-c'~" 'perlnow-perlify-this-buffer-simple)
 
 ; Anything
-(add-to-list 'load-path (concat local-pkg-dir "anything"))
 (require 'anything-config)
 
 ;; Custom defuns
@@ -287,7 +294,7 @@
 ; XXX Fix for only .el files XXX
 (add-hook 'after-save-hook
           (lambda ()
-            (if (and buffer-file-name (string-match local-top-dir buffer-file-name))
+            (if (and buffer-file-name (string-match (concat local-top-dir ".*\.el$") buffer-file-name))
                 (byte-compile-file buffer-file-name)
               )
             )
@@ -337,7 +344,6 @@
 ;; Per-project or temporary mappings
 (require 'ssmm-project)
 
-;;(if (featurep 'ssmm-site-moto)
 (if (featurep 'l-cygwin)
     (progn
       ;(set-default-font "7x14")
@@ -375,7 +381,7 @@
       (add-to-list 'Info-default-directory-list
                    (concat "/usr/share/emacs/" ssmm:vers "/info/"))
 
-      (setq display-time-format "%6l:%M%p")
+      (defvar display-time-format "%6l:%M%p")
       (display-time)
       )
   )

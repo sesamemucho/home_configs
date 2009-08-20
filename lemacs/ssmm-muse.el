@@ -2,6 +2,12 @@
 ;; Split out of ssmm-initial.el
 
 (add-to-list 'load-path (concat local-pkg-dir "muse-latest/lisp/") t)
+(defvar muse-project-alist
+  '(("vcinfo" ("~/Projects/web/vcinfo" :default "index")
+                                        ;(:base "html" :path (concat (getenv "DATA") "/vcinfo"))
+     (:base "html" :path "/home/big/Data/vcinfo")
+     (:base "pdf" :path (concat (getenv "DATA") "/vcinfo/pdf")))))
+
 (require 'muse-autoloads)
 (require 'muse-html)     ; load publishing styles I use
 (require 'muse-latex)
@@ -23,11 +29,5 @@
 ;;                   (if (re-search-backward "\* [A-Z][a-z]+.*\\|#title " 1 t)
 ;;                       (muse-mode)))))))
 
-
-(setq muse-project-alist
-      '(("vcinfo" ("~/Projects/web/vcinfo" :default "index")
-                                        ;(:base "html" :path (concat (getenv "DATA") "/vcinfo"))
-         (:base "html" :path "/home/big/Data/vcinfo")
-         (:base "pdf" :path (concat (getenv "DATA") "/vcinfo/pdf")))))
 
 (provide 'ssmm-muse)
