@@ -12,11 +12,14 @@ if `grep gallifrey /etc/resolv.conf >/dev/null 2>&1`; then
     loc=gallifrey
 elif `grep -F vc.grumpydogconsulting /etc/resolv.conf >/dev/null 2>&1`; then
     loc=vc
+elif [[ ${USERDOMAIN:-none} = "DS" ]]; then
+    loc=extm
 else
     loc=elsewhere
 fi
 
-test -f ~/.profile.d/$loc &&  . ~/.profile.d/$loc
+export SSMM_LOC=$loc
+test -f ~/.profile.d/$SSMM_LOC &&  . ~/.profile.d/$SSMM_LOC
 
 is_running ssh-agent || { eval `ssh-agent -s`; }
 is_running emacs || { emacs --daemon >& ~/.emacsstart.log; }

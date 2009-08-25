@@ -46,19 +46,6 @@ PS1='[\u@\h \W]\$ '
 
 alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
-# Per-whatever configs
-name=`uname -n`
-test -f ~/.bash.d/$name &&  . ~/.bash.d/$name
-
-if `grep gallifrey /etc/resolv.conf >/dev/null 2>&1`; then
-    loc=gallifrey
-elif `grep -F vc.grumpydogconsulting /etc/resolv.conf >/dev/null 2>&1`; then
-    loc=vc
-elif [[ ${USERDOMAIN:-none} = "DS" ]]; then
-    loc=extm
-else
-    loc=elsewhere
-fi
-export SSMM_LOC=$loc
+# Per-location configs
+junk=${SSMM_LOC:?}              # Make sure it's defined (from .bash_profile)
 test -f ~/.bash.d/$loc &&  . ~/.bash.d/$loc
-
