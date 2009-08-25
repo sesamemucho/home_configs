@@ -2,24 +2,14 @@
 # Should be run from ~/lemacs
 #
 # 'emacs' should invoke the correct emacs
-set -x
-here=`pwd`
 
-cp -v dot-emacs ~/.emacs
+make all
 
-emacs -batch -q -f batch-byte-compile ssmm-config.el
+# packages
+make -C packages all
 
-emacs -batch -q -l ssmm-config.el -f batch-byte-compile `ls *.el | egrep -v ssm-config`
-
-# misc
-cd packages/misc
-emacs -batch -q -f batch-byte-compile *el
-cd $here
-
-# git-emacs
-cd packages/git-emacs
-emacs -batch -q -L `pwd` -f batch-byte-compile *el
-cd $here
+# Specials
+rsync -av packages/templates/templates/ ${HOME}/.templates
 
 # # BBDB
 # cd packages/bbdb
@@ -34,47 +24,3 @@ cd $here
 # make bbdb gnus
 # cd $here
 
-# # org-mode
-# cd packages/org
-# make clean
-# make
-# make info
-# cd $here
-
-# # remember
-# cd packages/remember-1.9
-# make clean
-# make
-# cd $here
-
-# # anything
-# cd packages/anything
-# emacs -batch -q -L `pwd` -f batch-byte-compile *el
-# cd $here
-
-# # Don't forget, the info file 'dir' may need to be updated or created
-
-# # icicles
-# cd packages/icicles
-# emacs -batch -q -f batch-byte-compile *el
-# cd $here
-
-# # emacs-w3m
-# cd packages/emacs-w3m
-# ./configure --prefix=${HOME}/local
-# make
-# make install
-# make install-icons
-# cd $here
-
-# # template
-# cd packages/template
-# emacs -batch -q -f batch-byte-compile lisp/template.el
-# rsync -av templates/ ${HOME}/.templates
-# cd $here
-
-# # muse
-# cd packages/muse-latest
-# make clean
-# make
-# cd $here
