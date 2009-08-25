@@ -48,4 +48,4 @@ alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # Per-location configs
 junk=${SSMM_LOC:?}              # Make sure it's defined (from .bash_profile)
-test -f ~/.bash.d/$loc &&  . ~/.bash.d/$loc
+test -f ~/.bash.d/$SSMM_LOC &&  . ~/.bash.d/$SSMM_LOC
