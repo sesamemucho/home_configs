@@ -38,6 +38,7 @@
   (add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
   (add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
   (add-to-list 'load-path (concat local-pkg-dir "anything"))
+  (add-to-list 'load-path (concat local-pkg-dir "python"))
   (if (featurep 'l-cygwin)
       (progn
         (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
@@ -47,6 +48,7 @@
 (add-to-list 'load-path (concat local-pkg-dir "icicles/") t)
 (add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
 (add-to-list 'load-path (concat local-pkg-dir "anything"))
+(add-to-list 'load-path (concat local-pkg-dir "python"))
 (if (featurep 'l-cygwin)
     (progn
       (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
@@ -74,6 +76,12 @@
 ;      '(("/xfer/.*"   "./")
 ;        (t            "~/backups/" ok-create full-path))
 ;      )
+
+(setq eldoc-idle-delay 0)
+(autoload 'turn-on-eldoc-mode "eldoc" nil t)
+(add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
+(add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
+
 
 ;; PIM stuff
 (require 'ssmm-pim)
@@ -223,6 +231,10 @@
 (autoload 'perlcritic        "perlcritic" "" t)
 (autoload 'perlcritic-region "perlcritic" "" t)
 (autoload 'perlcritic-mode   "perlcritic" "" t)
+
+;; Python
+(add-hook 'python-mode-hook
+          '(lambda () (eldoc-mode 1)) t)
 
 ;;   Add the following to your .emacs file to get perlcritic-mode to
 ;;   run automatically for the `cperl-mode' and `perl-mode'.
@@ -418,5 +430,8 @@
           ".el")))
 
 (require 'ssmm-project)
+
+;; Just to be sure
+(setq make-backup-files nil)
 
 (provide 'ssmm-initial)
