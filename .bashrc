@@ -44,7 +44,7 @@ shopt -s checkwinsize
 
 PS1='[\u@\h \W]\$ '
 
-alias config='git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
+alias config='GIT_AUTHOR_EMAIL="sesamemucho@gmail.com" GIT_AUTHOR_NAME="sesamemucho" git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
 # Per-location configs
 junk=${SSMM_LOC:?}              # Make sure it's defined (from .bash_profile)
