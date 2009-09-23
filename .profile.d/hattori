@@ -12,3 +12,6 @@ fi
 
 # No console beeps ever, anywhere, at all
 setterm -blength 0
+
+# use TGT_TOP to store object files, executables, other makefile targets.
+export TGT_TOP=/home/big/Data
