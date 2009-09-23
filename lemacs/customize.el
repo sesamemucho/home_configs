@@ -21,4 +21,5 @@
   ;; Your init file should contain only one such instance.
   ;; If there is more than one, they won't work right.
  '(fixed-pitch ((t (:family "Terminus"))))
- '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "RosyBrown4")))))
+ '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "RosyBrown4"))))
+ '(sh-heredoc ((((class color) (background light)) (:foreground "tan4")))))
