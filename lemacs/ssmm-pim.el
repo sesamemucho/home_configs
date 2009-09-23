@@ -133,7 +133,7 @@
           (org-agenda-remove-tags t))
          ("~/temp/agenda.ps"))
         ("S" "Shop"
-         ((tags "shop"))
+         ((tags-todo "shop"))
          ((org-show-entry-below t)
           (org-show-hierarchy-above t)
           (ps-number-of-columns 1)
