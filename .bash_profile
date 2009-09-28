@@ -10,12 +10,11 @@ test -f ~/.profile.d/$name &&  . ~/.profile.d/$name
 
 if `grep gallifrey /etc/resolv.conf >/dev/null 2>&1`; then
     loc=gallifrey
-elif `grep -F vc.grumpydogconsulting /etc/resolv.conf >/dev/null 2>&1`; then
-    loc=vc
 elif [[ ${USERDOMAIN:-none} = "DS" ]]; then
     loc=extm
 else
-    loc=elsewhere
+    # Home base
+    loc=vc
 fi
 
 export SSMM_LOC=$loc
