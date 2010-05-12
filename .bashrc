@@ -46,6 +46,13 @@ PS1='[\u@\h \W]\$ '
 
 alias config='GIT_AUTHOR_EMAIL="sesamemucho@gmail.com" GIT_AUTHOR_NAME="sesamemucho" git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 
+sys=`uname -o`
+test -f ~/.bash.d/$sys &&  . ~/.bash.d/$sys
+
+# Per-whatever configs
+name=`uname -n`
+test -f ~/.bash.d/$name &&  . ~/.bash.d/$name
+
 # Per-location configs
 junk=${SSMM_LOC:?}              # Make sure it's defined (from .bash_profile)
 test -f ~/.bash.d/$SSMM_LOC &&  . ~/.bash.d/$SSMM_LOC

@@ -1,5 +1,0 @@
-is_running()
-{
-    a=`ps -C $1 | tail --lines=+2 | head -1 | awk '{print $1 "  " $4}'`
-    test -n "$a"
-}

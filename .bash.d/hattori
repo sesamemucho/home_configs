@@ -1,2 +1,24 @@
 export DATA=/home/big/Data
 export PYTHONDOCS=/usr/share/doc/python/html/
+
+source /usr/bin/virtualenvwrapper_bashrc
+
+ssmm_connected()
+{
+    local connected=1
+
+    if ifconfig wlan0 2>/dev/null | grep -sq 'inet addr';
+    then
+        connected=0
+    elif ifconfig eth0 2>/dev/null | grep -sq 'inet addr';
+    then
+        connected=0
+    fi
+
+    return $connected
+}
+
+ssmm_online()
+{
+    ssmm_connected && ping -c 1 -w 2 -q www.google.com &> /dev/null
+}

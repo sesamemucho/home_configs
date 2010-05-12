@@ -1,3 +1,9 @@
+is_running()
+{
+    ps aux | egrep -v "grep $1" | grep "$1" &>/dev/null
+    return $?
+}
+
 # Per-system configs
 # These will generally have functions to adapt differences between operating systems
 
@@ -20,10 +26,10 @@ fi
 export SSMM_LOC=$loc
 test -f ~/.profile.d/$SSMM_LOC &&  . ~/.profile.d/$SSMM_LOC
 
+. $HOME/.bashrc
+
 is_running ssh-agent || { eval `ssh-agent -s`; }
 is_running emacs || { emacs --daemon >& ~/.emacsstart.log; }
 export EDITOR="emacsclient -c"
-
-. $HOME/.bashrc
 
 # test

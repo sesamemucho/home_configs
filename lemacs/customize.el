@@ -5,6 +5,10 @@
   ;; If there is more than one, they won't work right.
  '(backup-directory-alist (quote (("^[ikmqrsty]:/.*" . "~/backups"))))
  '(bbdb-file "~/org/pim/.bbdb")
+ '(boxquote-bottom-corner "//")
+ '(boxquote-side "// ")
+ '(boxquote-top-and-tail "************************************************************************")
+ '(boxquote-top-corner "//")
  '(icicle-reminder-prompt-flag 2)
  '(indent-tabs-mode nil)
  '(kept-new-versions 2 nil nil "yep")

@@ -15,3 +15,7 @@ setterm -blength 0
 
 # use TGT_TOP to store object files, executables, other makefile targets.
 export TGT_TOP=/home/big/Data
+
+export PYTHONDOCS=/usr/share/doc/python/html/
+export WORKON_HOME=$HOME/.virtualenvs
+

@@ -9,7 +9,12 @@
 
 (setq-default indent-tabs-mode nil)     ;use spaces (not tabs) for indenting
 (setq-default line-move-visual nil)
+(setq-default show-trailing-whitespace t)
+
 (transient-mark-mode 1)                 ;for org-mode, mostly
+
+;; unused buffer cleanup
+(require 'midnight)
 
 ;; This turns out to be very annoying, especially when clicking the mouse near the top or bottom of a buffer
 ;;(setq scroll-margin 15)                 ;keep cursor more-or-less in the middle of a buffer while scrolling
@@ -19,9 +24,10 @@
 (dynamic-completion-mode)
 (global-set-key (kbd "C-\\") 'complete)
 
+(add-to-list 'initial-frame-alist '(fullscreen . "maximized"))
 (add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
 (add-to-list 'default-frame-alist '(width . 144))
-(add-to-list 'default-frame-alist '(height . 48))
+(add-to-list 'default-frame-alist '(height . 46))
 
 (if (fboundp 'scroll-bar-mode) (scroll-bar-mode -1))
 (if (fboundp 'tool-bar-mode) (tool-bar-mode -1))
@@ -88,6 +94,7 @@
 
 ;; Muse
 ;; May not be installed on a given system
+(add-to-list 'auto-mode-alist '("\\.muse$" . muse-mode) t)
 (autoload 'muse-mode "ssmm-muse" "Muse" t)
 
 ;; Icicles
@@ -389,10 +396,15 @@
   )
 
 ; Terminal colors are never useful
-(if (null window-system)
+(unless (or (and
+             (fboundp 'daemonp)
+             (daemonp))
+            window-system)
+  (progn
     (setq font-lock-function 'ssmm:null-font-lock-function)
     (add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
-  )
+    )
+)
 
 (put 'set-goal-column 'disabled nil)
 (put 'erase-buffer 'disabled nil)

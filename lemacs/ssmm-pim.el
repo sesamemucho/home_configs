@@ -85,6 +85,12 @@
                            "~/org/pim/system_notes.org.gpg"
                            "~/org/pim/nlug.org.gpg"))
 
+(defvar org-archive-location "%s_archive.gpg::")
+
+(defvar org-default-priority ?C)
+(defvar org-highest-priority ?A)
+(defvar org-lowest-priority ?E)
+
 (defvar org-agenda-ndays 7)
 (defvar org-agenda-show-all-dates t)
 (defvar org-agenda-todo-list-sublevels nil)
@@ -132,6 +138,12 @@
           (org-agenda-with-colors nil)
           (org-agenda-remove-tags t))
          ("~/temp/agenda.ps"))
+        ("u" alltodo ""
+         ((org-agenda-skip-function
+           (lambda nil
+             (org-agenda-skip-entry-if (quote scheduled) (quote deadline)
+                                       (quote regexp) "<[^>\n]+>")))
+          (org-agenda-overriding-header "Unscheduled TODO entries: ")))
         ("S" "Shop"
          ((tags-todo "shop"))
          ((org-show-entry-below t)
@@ -168,6 +180,7 @@
          ((org-agenda-skip-function '(org-agenda-skip-entry-if 'deadline))
           (ps-number-of-columns 1)
           (ps-landscape-mode t)
+          (ps-font-size 12)
           (org-agenda-ndays 1)
           (org-agenda-prefix-format " [ ] ")
           (org-agenda-with-colors nil)

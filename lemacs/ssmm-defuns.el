@@ -4,11 +4,12 @@
   (indent-to-column 75)
 )
 
+(setq-default ssmm:fill-column 45)
+
 (defun fill-to-column ()
   (interactive)
-  (insert-char 32 (- 54 (current-column)))
+  (insert-char 32 (- ssmm:fill-column (current-column)))
 )
-
 
 (defun ssmm:last-window ()
   (interactive)
