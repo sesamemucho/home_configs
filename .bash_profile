@@ -29,7 +29,7 @@ test -f ~/.profile.d/$SSMM_LOC &&  . ~/.profile.d/$SSMM_LOC
 . $HOME/.bashrc
 
 is_running ssh-agent || { eval `ssh-agent -s`; }
-is_running emacs || { emacs --daemon >& ~/.emacsstart.log; }
+#is_running emacs || { emacs --daemon >& ~/.emacsstart.log; }
 export EDITOR="emacsclient -c"
 
 # test
