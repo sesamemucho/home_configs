@@ -18,9 +18,12 @@ if `grep gallifrey /etc/resolv.conf >/dev/null 2>&1`; then
     loc=gallifrey
 elif [[ ${USERDOMAIN:-none} = "DS" ]]; then
     loc=extm
+elif grep -F tivo.com /etc/resolv.conf >&/dev/null; then
+    loc=loc_tv
+elif grep -F solekai.com /etc/resolv.conf >&/dev/null; then
+    loc=loc_tv
 else
-    # Home base
-    loc=vc
+    loc=loc_elsewhere
 fi
 
 export SSMM_LOC=$loc

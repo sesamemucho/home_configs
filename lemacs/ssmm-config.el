@@ -2,6 +2,30 @@
 
 (defvar *emacs-load-start* (current-time))
 
+(defvar ssmm:loc (or (getenv "SSMM_LOC") "unset"))
+(defvar ssmm:name (shell-command-to-string "uname -n"))
+
+;(setq window-system 'x)
+
+;; TV wants to be first
+(message "window-system is %s" window-system)
+(require 'generic)
+(require 'font-lock)
+(font-lock-set-defaults)
+(require 'time)
+(if (and (or (string-match "loc_tv" ssmm:loc)
+             (string-match "TivoLaptop3" ssmm:name))
+         (getenv "TV_CHEATS_DIR"))
+    (let ((tvfile (concat (getenv "TV_CHEATS_DIR") "/home.cheats.el")))
+      (if (file-exists-p tvfile)
+	  (progn
+	    (message "loading %s" tvfile)
+	    (load-file tvfile)
+	    )
+        )
+      )
+  )
+
 (defconst ssmm:home (expand-file-name "~/")
   "Home directory")
 
@@ -73,13 +97,9 @@
 
 )
 
-(defvar ssmm:loc (or (getenv "SSMM_LOC") "unset"))
-
-(cond
- ((and (getenv "SSMM_LOC") (string-match "extm" (getenv "SSMM_LOC")) t)
+(if (string-match "extm" ssmm:loc)
   (provide 'ssmm-site-extm)
   )
-)
 
 (when (eq tty-erase-char ?\C-h)
   (keyboard-translate ?\C-h ?\C-?)
@@ -91,7 +111,7 @@
   "Absolute path for local downloaded emacs packages.")
 
 ;(add-to-list 'load-path local-pkg-dir t)
-(add-to-list 'load-path (concat local-pkg-dir "misc/") t)
+(add-to-list 'load-path (concat local-pkg-dir "misc/")) ; should be before installed emacs
 
 ;; Moving packages to ~/local
 (add-to-list 'Info-default-directory-list (concat local-user-top-dir "info/"))

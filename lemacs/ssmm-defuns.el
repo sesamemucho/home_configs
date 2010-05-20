@@ -109,11 +109,25 @@
   (revert-buffer t t)
   )
 
-(defun ssmm:compile ()
+(defvar ssmm:compile-command0 "make -k"
+  "*Command for alternate compile command 0")
+
+(defun ssmm:compile0 ()
   "Runs compile without asking."
   (interactive)
   (let ((compilation-read-command nil))
-    (compile compile-command)
+    (compile ssmm:compile-command0)
+    )
+)
+
+(defvar ssmm:compile-command1 "make -k"
+  "*Command for alternate compile command 1")
+
+(defun ssmm:compile1 ()
+  "Runs compile without asking."
+  (interactive)
+  (let ((compilation-read-command nil))
+    (compile ssmm:compile-command1)
     )
 )
 
