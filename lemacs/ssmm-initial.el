@@ -91,9 +91,10 @@
 (autoload 'muse-mode "ssmm-muse" "Muse" t)
 
 ;; Icicles
-(if window-system
-    (require 'icicles)
-)
+;; XXX Need to consider how this works with daemon mode and (setq window-system 'x)
+;(if window-system
+;    (require 'icicles)
+;)
 
 ;; (require 'epa)
 ;; (epa-file-enable)
@@ -308,7 +309,7 @@
   (comint-send-input)
   )
 
-(global-set-key [(f10)] 'ssmm:unittest:run-unit-test)
+(global-set-key [(shift f10)] 'ssmm:unittest:run-unit-test)
 
 ;; Custom defuns
 (require 'ssmm-defuns)
@@ -337,6 +338,11 @@
 ;;(add-hook 'rst-mode-hook 'rst-text-mode-bindings)
 
 ;; Key mappings
+(global-set-key [?\C-3] 'kill-ring-save)
+
+(global-set-key [(control tab)] 'other-window)
+(global-set-key [(control shift iso-lefttab)]
+                (lambda () (interactive) (other-window -1)))
 ;; Set C-c r to revert buffer without asking for confirmation
 (global-set-key [(control c) (r)] 'ssmm:revert-buffer-force)
 
@@ -367,8 +373,10 @@
 (global-set-key [f9]    'popup-ruler)
 ;; (global-set-key [S-f9]  'popup-ruler-vertical)
 
+(global-set-key [(f10)] 'next-error)
+(global-set-key [(control f10)] 'ssmm:compile0)
 (global-set-key [(f11)] 'next-error)
-(global-set-key [(control f11)] 'ssmm:compile)
+(global-set-key [(control f11)] 'ssmm:compile1)
 
 (global-set-key [(f12)] 'dabbrev-expand)
 
@@ -425,7 +433,7 @@
                   (insert-file-contents boop)
                   (eval-buffer)))
  (file-expand-wildcards
-  (concat ssmm:home ".lemacs.d/"
+  (concat ssmm:home "lemacs.d/"
           (replace-regexp-in-string "[ \t\n]*" "" (shell-command-to-string "uname -n"))
           ".el")))
 

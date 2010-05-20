@@ -3,7 +3,8 @@
 #
 
 #modules := misc git-emacs templates/lisp versor/lisp
-modules := misc git-emacs templates/lisp python
+#modules := misc git-emacs templates/lisp python
+modules := misc templates/lisp python
 
 source  := $(foreach mod,$(modules),$(wildcard $(mod)/*.el))
 objects := $(subst .el,.elc,$(source))
