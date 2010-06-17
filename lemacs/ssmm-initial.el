@@ -24,8 +24,12 @@
 (dynamic-completion-mode)
 (global-set-key (kbd "C-\\") 'complete)
 
+(require 'color-theme)
+(require 'zenburn)
+(color-theme-zenburn)
+
 (add-to-list 'initial-frame-alist '(fullscreen . "maximized"))
-(add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
+;;(add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
 (add-to-list 'default-frame-alist '(width . 144))
 (add-to-list 'default-frame-alist '(height . 46))
 
@@ -410,7 +414,7 @@
             window-system)
   (progn
     (setq font-lock-function 'ssmm:null-font-lock-function)
-    (add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
+    ;;(add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
     )
 )
 

@@ -3,6 +3,7 @@
 (defvar *emacs-load-start* (current-time))
 
 (defvar ssmm:loc (or (getenv "SSMM_LOC") "unset"))
+(defvar ssmm:proj (or (getenv "SSMM_PROJ") "unset"))
 (defvar ssmm:name (shell-command-to-string "uname -n"))
 
 ;(setq window-system 'x)
@@ -14,7 +15,7 @@
 (font-lock-set-defaults)
 (require 'time)
 (if (and (or (string-match "loc_tv" ssmm:loc)
-             (string-match "TivoLaptop3" ssmm:name))
+             (string-match "loc_sk" ssmm:loc))
          (getenv "TV_CHEATS_DIR"))
     (let ((tvfile (concat (getenv "TV_CHEATS_DIR") "/home.cheats.el")))
       (if (file-exists-p tvfile)
