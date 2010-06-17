@@ -42,7 +42,8 @@ export HISTCONTROL=ignoreboth
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-PS1='[\u@\h \W]\$ '
+# Don't need it; don't want it (especially for Emacs shell)
+unset PROMPT_COMMAND
 
 alias config='GIT_AUTHOR_EMAIL="sesamemucho@gmail.com" GIT_AUTHOR_NAME="sesamemucho" git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 

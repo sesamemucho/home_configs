@@ -6,8 +6,6 @@
       (cygwin-mount-activate)
       )
   )
-
-(setq-default indent-tabs-mode nil)     ;use spaces (not tabs) for indenting
 (setq-default line-move-visual nil)
 (setq-default show-trailing-whitespace t)
 
@@ -423,7 +421,7 @@
 (if (and (featurep 'l-hattori) (featurep 'l-arch))
     (let ((ssmm:vers
            (progn
-             (string-match "^\\([^.]+\\.[^.]+\\.[^.]+\\)\\." emacs-version)
+             (string-match "^\\([^.]+\\.[^.]+\\.[^.]+\\)" emacs-version)
              (match-string 1 emacs-version)
              )))
       (add-to-list 'Info-default-directory-list
