@@ -1,0 +1,2 @@
+source /usr/local/bin/virtualenvwrapper_bashrc
+export SSMM_DOTBASH=TivoLaptop3
