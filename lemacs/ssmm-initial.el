@@ -90,6 +90,109 @@
 (add-hook 'emacs-lisp-mode-hook 'turn-on-eldoc-mode)
 (add-hook 'lisp-interaction-mode-hook 'turn-on-eldoc-mode)
 
+;; Mail
+(add-to-list 'load-path (concat (expand-file-name "~/") "local/lemacs-packages/wl/") t)
+;; autoload configuration
+;; (Not required if you have installed Wanderlust as XEmacs package)
+(autoload 'wl "wl" "Wanderlust" t)
+(autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
+(autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+
+;; wanderlust
+(setq
+  elmo-maildir-folder-path "~/Maildir"          ;; where i store my mail
+
+  wl-stay-folder-window t                       ;; show the folder pane (left)
+  wl-folder-window-width 25                     ;; toggle on/off with 'i'
+
+  wl-smtp-posting-server "mail.solekai.com"            ;; put the smtp server here
+  wl-local-domain "TivoLaptop3.solekai.com"          ;; put something here...
+  wl-message-id-domain "TivoLaptop3.solekai.com"     ;; ...
+
+  wl-from "Bob Forgey <rforgey@solekai.com>"                  ;; my From:
+
+  ;; note: all below are dirs (Maildirs) under elmo-maildir-folder-path
+  ;; the '.'-prefix is for marking them as maildirs
+  ;; wl-fcc ".sent"                       ;; sent msgs go to the "sent"-folder
+  ;; wl-fcc-force-as-read t               ;; mark sent messages as read
+  ;; wl-default-folder ".inbox"           ;; my main inbox
+  ;; wl-draft-folder ".drafts"            ;; store drafts in 'postponed'
+  ;; wl-trash-folder ".trash"             ;; put trash in 'trash'
+  ;; wl-spam-folder ".trash"              ;; ...spam as well
+  ;; wl-queue-folder ".queue"             ;; we don't use this
+
+  ;; check this folder periodically, and update modeline
+  wl-biff-check-folder-list '(".todo") ;; check every 180 seconds
+                                       ;; (default: wl-biff-check-interval)
+
+  ;; hide many fields from message buffers
+  wl-message-ignored-field-list '("^.*:")
+  wl-message-visible-field-list
+  '("^\\(To\\|Cc\\):"
+    "^Subject:"
+    "^\\(From\\|Reply-To\\):"
+    "^Organization:"
+    "^Message-Id:"
+    "^\\(Posted\\|Date\\):"
+    )
+  wl-message-sort-field-list
+  '("^From"
+    "^Organization:"
+    "^X-Attribution:"
+     "^Subject"
+     "^Date"
+     "^To"
+     "^Cc"))
+;; ;; IMAP
+;; (setq elmo-imap4-default-server "mail.solekai.com")
+;; (setq elmo-imap4-default-user "<rforgey>@solekai.com")
+;; (setq elmo-imap4-default-stream-type 'starttls)
+;; (setq elmo-imap4-default-authenticate-type 'ntlm)
+;; (setq elmo-imap4-default-port '143)
+;; ;(setq elmo-imap4-default-stream-type 'ssl)
+;; (setq elmo-imap4-debug t)
+
+;; (setq elmo-imap4-use-modified-utf7 t)
+;; (setq smtp-use-8bitmime nil) ;; 8bitmime screws up the MS Exchange Server
+
+;; ;; SMTP
+;; (setq wl-smtp-connection-type 'starttls)
+;; (setq wl-smtp-posting-port 25)
+;; (setq wl-smtp-authenticate-type "login")
+;; (setq wl-smtp-posting-user "rforgey")
+;; (setq wl-smtp-posting-server "mail.solekai.com")
+;; (setq wl-local-domain "solekai.com")
+
+;; (setq wl-default-folder "%inbox")
+;; (setq wl-default-spec "%")
+;; ;(setq wl-draft-folder "%[Gmail]/Drafts") ; Gmail IMAP
+;; ;(setq wl-trash-folder "%[Gmail]/Trash")
+
+;; (setq wl-folder-check-async t)
+
+;; (setq elmo-imap4-use-modified-utf7 t)
+
+;; ;; Directory where icons are placed.
+;; ;; Default: the peculiar value to the running version of Emacs.
+;; ;; (Not required if the default value points properly)
+;; ;(setq wl-icon-directory "~/work/wl/etc")
+
+;; ;; SMTP server for mail posting. Default: `nil'
+;; (setq wl-smtp-posting-server "mail.solekai.com")
+;; ;; NNTP server for news posting. Default: `nil'
+;; ;(setq wl-nntp-posting-server "your.nntp.example.com")
+
+(autoload 'wl-user-agent-compose "wl-draft" nil t)
+(if (boundp 'mail-user-agent)
+    (setq mail-user-agent 'wl-user-agent))
+(if (fboundp 'define-mail-user-agent)
+    (define-mail-user-agent
+      'wl-user-agent
+      'wl-user-agent-compose
+      'wl-draft-send
+      'wl-draft-kill
+      'mail-send-hook))
+
 
 ;; PIM stuff
 (require 'ssmm-pim)

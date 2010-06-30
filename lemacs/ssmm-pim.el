@@ -194,6 +194,58 @@
 
 (defvar org-reverse-note-order t)
 
+;; From: http://article.gmane.org/gmane.emacs.orgmode/5271
+;; Here is how I do it, using very little machinery. As part of org-mode
+;; initialization, I add appointments from the diary to the agenda at
+;; startup and I also make org-agenda-redo rescan the appt list:
+
+;; -----------------------------------
+(require 'appt)
+(setq org-agenda-include-diary t)
+(setq appt-time-msg-list nil)
+(org-agenda-to-appt)
+
+(defadvice  org-agenda-redo (after org-agenda-redo-add-appts)
+  "Pressing `r' on the agenda will also add appointments."
+  (progn
+    (setq appt-time-msg-list nil)
+    (org-agenda-to-appt)))
+
+(ad-activate 'org-agenda-redo)
+;; -----------------------------------
+
+;; I enable appt reminders, set the format to 'window and provide
+;; a display function that calls a python program to do the popup:
+
+;; -----------------------------------
+(appt-activate 1)
+(setq appt-display-format 'window)
+(setq appt-disp-window-function (function my-appt-disp-window))
+(defun my-appt-disp-window (min-to-app new-time msg)
+  (call-process (concat ssmm:home "lemacs/bin/popup.py") nil 0 nil min-to-app msg new-time))
+
+;-----------------------------------
+
+;; Finally, the popup.py program is trivial:
+
+;; -----------------------------------
+;; #!/usr/bin/env python
+
+;; """ Simple dialog popup example similar to the GTK+ Tutorials one """
+
+;; import gtk
+;; import sys
+
+;; mins = sys.argv[1]
+;; text = ' '.join(sys.argv[2:])
+;; dialog = gtk.MessageDialog(None,
+;;                            gtk.DIALOG_MODAL | gtk.DIALOG_DESTROY_WITH_PARENT,
+;;                            gtk.MESSAGE_INFO, gtk.BUTTONS_OK,
+;;                            "Appt in %s mins: %s" % (mins, text))
+;; dialog.run()
+;; dialog.destroy()
+;; -----------------------------------
+
 (add-to-list 'load-path (concat local-user-top-dir "share/emacs/site-lisp/remember"))
 
 
