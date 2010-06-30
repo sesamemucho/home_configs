@@ -18,4 +18,6 @@ export TGT_TOP=/home/big/Data
 
 export PYTHONDOCS=/usr/share/doc/python/html/
 export WORKON_HOME=$HOME/.virtualenvs
-
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+export PIP_REQUIRE_VIRTUALENV=true
+export PIP_RESPECT_VIRTUALENV=true
