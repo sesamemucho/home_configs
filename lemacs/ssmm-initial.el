@@ -412,7 +412,9 @@
 (defun ssmm:c-mode-setup ()
   (c-add-style "M" m-c-style t))
 
-(add-hook 'c-mode-hook 'ssmm:c-mode-setup)
+(add-hook 'c-mode-common-hook 'ssmm:c-mode-setup t)
+;(remove-hook 'c-mode-common-hook 'ssmm:c-mode-setup)
+
 
 ;; Makefile
 (add-to-list 'auto-mode-alist '("\\.mak$" . makefile-mode) t)
@@ -545,6 +547,8 @@
 
 (global-set-key [(control shift f3)] 'insert-date)
 (global-set-key [(control f3)] 'ssmm:insert-short-date)
+
+(global-set-key [(f5)] 'ssmm:fill-to-column)
 
 (global-set-key [(f6)] 'ssmm:forward-wide-line)
 (global-set-key [(control f6)] 'ssmm:backward-wide-line)
