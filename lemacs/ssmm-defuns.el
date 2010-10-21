@@ -6,7 +6,7 @@
 
 (setq-default ssmm:fill-column 45)
 
-(defun fill-to-column ()
+(defun ssmm:fill-to-column ()
   (interactive)
   (insert-char 32 (- ssmm:fill-column (current-column)))
 )

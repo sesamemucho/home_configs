@@ -10,9 +10,11 @@
  ((string-match "tv" ssmm:proj)
   (message "yep")
   (add-to-list 'org-remember-templates
-               (quote("Work"    ?w "** TODO %? %t" "~/Documents/tivo/org/insignia.org" "Tasks")
-                      ))
+               (quote("Work"    ?w "** TODO %? %t" "~/Documents/tivo/org/insignia.org" "Tasks")))
+  (add-to-list 'org-remember-templates
+               (quote("Ins"     ?i "%?" "~/Documents/tivo/org/insignia.org" "Ins-today")))
+
   )
-)
+ )
 
 (provide 'ssmm-project)
