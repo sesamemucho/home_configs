@@ -1,7 +1,7 @@
 export DATA=/home/big/Data
 export PYTHONDOCS=/usr/share/doc/python/html/
 
-source /usr/bin/virtualenvwrapper.sh
+source /usr/local/bin/virtualenvwrapper.sh
 
 ssmm_connected()
 {
