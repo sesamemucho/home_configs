@@ -49,8 +49,10 @@
     (and (string-match "hattori" uname) (string-match "ARCH" uname))
     ))
 
-(defvar ssmm:special-key [(apps)])
-(defvar ssmm:special-key-ctrl [(control apps)])
+(defvar ssmm:special-key [(end)])
+(defvar ssmm:special-key-ctrl [(control end)])
+;(defvar ssmm:special-key [(apps)])
+;(defvar ssmm:special-key-ctrl [(control apps)])
 ;(set-frame-parameter nil 'font-backend '(xft))
 (cond
  ((string-match "windows" (symbol-name system-type))

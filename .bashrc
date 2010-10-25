@@ -1,7 +1,7 @@
 # eventually, From Bash Cookbook
 # cookbook filename: func_pathmunge
 # Adapted from Red Hat Linux
-function listmunge {
+listmunge() {
     lname=$1
     new_elem=$2
     after_p=$3
@@ -42,8 +42,7 @@ export HISTCONTROL=ignoreboth
 # update the values of LINES and COLUMNS.
 shopt -s checkwinsize
 
-# Don't need it; don't want it (especially for Emacs shell)
-unset PROMPT_COMMAND
+PS1='[\u@\h \W]\$ '
 
 alias config='GIT_AUTHOR_EMAIL="sesamemucho@gmail.com" GIT_AUTHOR_NAME="sesamemucho" git --git-dir=$HOME/.config.git/ --work-tree=$HOME'
 

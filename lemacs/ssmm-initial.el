@@ -6,6 +6,8 @@
       (cygwin-mount-activate)
       )
   )
+
+(setq-default indent-tabs-mode nil)     ;use spaces (not tabs) for indenting
 (setq-default line-move-visual nil)
 (setq-default show-trailing-whitespace t)
 
@@ -27,7 +29,7 @@
 (color-theme-zenburn)
 
 (add-to-list 'initial-frame-alist '(fullscreen . "maximized"))
-;;(add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
+;(add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
 (add-to-list 'default-frame-alist '(width . 144))
 (add-to-list 'default-frame-alist '(height . 46))
 
@@ -47,6 +49,7 @@
   (add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
   (add-to-list 'load-path (concat local-pkg-dir "anything"))
   (add-to-list 'load-path (concat local-pkg-dir "python"))
+  (add-to-list 'load-path (concat local-pkg-dir "julien_danjou"))
   (if (featurep 'l-cygwin)
       (progn
         (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
@@ -57,10 +60,14 @@
 (add-to-list 'load-path (concat local-pkg-dir "template/lisp") t)
 (add-to-list 'load-path (concat local-pkg-dir "anything"))
 (add-to-list 'load-path (concat local-pkg-dir "python"))
+(add-to-list 'load-path (concat local-pkg-dir "julien_danjou"))
 (if (featurep 'l-cygwin)
     (progn
       (add-to-list 'load-path (concat (expand-file-name "~/") "local/share/emacs/23/site-lisp/w3m/") t)
 ))
+
+; Too much and a half
+(require 'google-maps)
 
 (require 'versor)
 (require 'languide)
@@ -97,6 +104,71 @@
 (autoload 'wl "wl" "Wanderlust" t)
 (autoload 'wl-other-frame "wl" "Wanderlust on new frame." t)
 (autoload 'wl-draft "wl-draft" "Write draft with Wanderlust." t)
+
+;; ;; wanderlust
+;; ;; **** working version ****
+;; (setq
+;;   elmo-maildir-folder-path "~/Maildir"          ;; where i store my mail
+
+;;   wl-stay-folder-window t                       ;; show the folder pane (left)
+;;   wl-folder-window-width 25                     ;; toggle on/off with 'i'
+
+;;   wl-smtp-posting-server "mail.solekai.com"            ;; put the smtp server here
+;;   wl-local-domain "TivoLaptop3.solekai.com"          ;; put something here...
+;;   wl-message-id-domain "TivoLaptop3.solekai.com"     ;; ...
+
+;;   wl-from "Bob Forgey <rforgey@solekai.com>"                  ;; my From:
+
+;;   ;; check this folder periodically, and update modeline
+;;   wl-biff-check-folder-list '(".todo") ;; check every 180 seconds
+;;                                        ;; (default: wl-biff-check-interval)
+
+;;   ;; hide many fields from message buffers
+;;   wl-message-ignored-field-list '("^.*:")
+;;   wl-message-visible-field-list
+;;   '("^\\(To\\|Cc\\):"
+;;     "^Subject:"
+;;     "^\\(From\\|Reply-To\\):"
+;;     "^Organization:"
+;;     "^Message-Id:"
+;;     "^\\(Posted\\|Date\\):"
+;;     )
+;;   wl-message-sort-field-list
+;;   '("^From"
+;;     "^Organization:"
+;;     "^X-Attribution:"
+;;      "^Subject"
+;;      "^Date"
+;;      "^To"
+;;      "^Cc"))
+;; ;; ;; IMAP
+;; (setq elmo-imap4-default-server "mail.solekai.com")
+;; (setq elmo-imap4-default-user "<rforgey>@solekai.com")
+;; (setq elmo-imap4-default-stream-type 'starttls)
+;; (setq elmo-imap4-default-authenticate-type 'ntlm)
+;; (setq elmo-imap4-default-port '143)
+;; ;(setq elmo-imap4-default-stream-type 'ssl)
+;; (setq elmo-imap4-debug t)
+
+;; (setq elmo-imap4-use-modified-utf7 t)
+;; (setq smtp-use-8bitmime nil) ;; 8bitmime screws up the MS Exchange Server
+
+;; (setq wl-smtp-connection-type 'starttls)
+;; (setq wl-smtp-posting-port 587)
+;; (setq wl-smtp-authenticate-type "login")
+;; (setq wl-smtp-posting-user "rforgey")
+;; (setq wl-smtp-posting-server "mail.solekai.com")
+;; (setq wl-local-domain "solekai.com")
+;; (autoload 'wl-user-agent-compose "wl-draft" nil t)
+;; (if (boundp 'mail-user-agent)
+;;     (setq mail-user-agent 'wl-user-agent))
+;; (if (fboundp 'define-mail-user-agent)
+;;     (define-mail-user-agent
+;;       'wl-user-agent
+;;       'wl-user-agent-compose
+;;       'wl-draft-send
+;;       'wl-draft-kill
+;;       'mail-send-hook))
 
 ;; wanderlust
 (setq
@@ -144,16 +216,16 @@
      "^To"
      "^Cc"))
 ;; ;; IMAP
-;; (setq elmo-imap4-default-server "mail.solekai.com")
-;; (setq elmo-imap4-default-user "<rforgey>@solekai.com")
-;; (setq elmo-imap4-default-stream-type 'starttls)
-;; (setq elmo-imap4-default-authenticate-type 'ntlm)
-;; (setq elmo-imap4-default-port '143)
-;; ;(setq elmo-imap4-default-stream-type 'ssl)
-;; (setq elmo-imap4-debug t)
+(setq elmo-imap4-default-server "mail.solekai.com")
+(setq elmo-imap4-default-user "<rforgey>@solekai.com")
+(setq elmo-imap4-default-stream-type 'starttls)
+(setq elmo-imap4-default-authenticate-type 'ntlm)
+(setq elmo-imap4-default-port '143)
+;(setq elmo-imap4-default-stream-type 'ssl)
+(setq elmo-imap4-debug t)
 
-;; (setq elmo-imap4-use-modified-utf7 t)
-;; (setq smtp-use-8bitmime nil) ;; 8bitmime screws up the MS Exchange Server
+(setq elmo-imap4-use-modified-utf7 t)
+(setq smtp-use-8bitmime nil) ;; 8bitmime screws up the MS Exchange Server
 
 ;; ;; SMTP
 ;; (setq wl-smtp-connection-type 'starttls)
@@ -182,6 +254,12 @@
 ;; ;; NNTP server for news posting. Default: `nil'
 ;; ;(setq wl-nntp-posting-server "your.nntp.example.com")
 
+(setq wl-smtp-connection-type 'starttls)
+(setq wl-smtp-posting-port 587)
+(setq wl-smtp-authenticate-type "login")
+(setq wl-smtp-posting-user "rforgey")
+(setq wl-smtp-posting-server "mail.solekai.com")
+(setq wl-local-domain "solekai.com")
 (autoload 'wl-user-agent-compose "wl-draft" nil t)
 (if (boundp 'mail-user-agent)
     (setq mail-user-agent 'wl-user-agent))
@@ -192,7 +270,6 @@
       'wl-draft-send
       'wl-draft-kill
       'mail-send-hook))
-
 
 ;; PIM stuff
 (require 'ssmm-pim)
@@ -210,6 +287,7 @@
 
 ;; (require 'epa)
 ;; (epa-file-enable)
+;; (setq epg-gpg-program “gpg”)
 
 ;; (autoload 'ssmm:encrypt "pgg")
 ;; (autoload 'ssmm:decrypt "pgg")
@@ -289,6 +367,8 @@
 
 ;; Programming
 
+(require 'multi-term)
+(setq multi-term-program "/bin/bash")
 
 (require 'w3m)
 
@@ -333,7 +413,9 @@
 (defun ssmm:c-mode-setup ()
   (c-add-style "M" m-c-style t))
 
-(add-hook 'c-mode-hook 'ssmm:c-mode-setup)
+(add-hook 'c-mode-common-hook 'ssmm:c-mode-setup t)
+;(remove-hook 'c-mode-common-hook 'ssmm:c-mode-setup)
+
 
 ;; Makefile
 (add-to-list 'auto-mode-alist '("\\.mak$" . makefile-mode) t)
@@ -423,6 +505,14 @@
 
 (global-set-key [(shift f10)] 'ssmm:unittest:run-unit-test)
 
+;; misc
+;; EMMS
+(add-to-list 'load-path "/usr/share/emacs23/site-lisp/emms/" t)
+(require 'emms-setup)
+(emms-standard)
+(emms-default-players)
+(setq emms-source-file-default-directory "~/Music/")
+
 ;; Custom defuns
 (require 'ssmm-defuns)
 
@@ -466,6 +556,8 @@
 
 (global-set-key [(control shift f3)] 'insert-date)
 (global-set-key [(control f3)] 'ssmm:insert-short-date)
+
+(global-set-key [(f5)] 'ssmm:fill-to-column)
 
 (global-set-key [(f6)] 'ssmm:forward-wide-line)
 (global-set-key [(control f6)] 'ssmm:backward-wide-line)
@@ -515,7 +607,7 @@
             window-system)
   (progn
     (setq font-lock-function 'ssmm:null-font-lock-function)
-    ;;(add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
+    ;(add-to-list 'default-frame-alist '(background-color . "NavajoWhite1"))
     )
 )
 
@@ -528,7 +620,7 @@
 (if (and (featurep 'l-hattori) (featurep 'l-arch))
     (let ((ssmm:vers
            (progn
-             (string-match "^\\([^.]+\\.[^.]+\\.[^.]+\\)" emacs-version)
+             (string-match "^\\([^.]+\\.[^.]+\\.[^.]+\\)\\." emacs-version)
              (match-string 1 emacs-version)
              )))
       (add-to-list 'Info-default-directory-list

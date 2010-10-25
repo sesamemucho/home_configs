@@ -26,4 +26,6 @@
   ;; If there is more than one, they won't work right.
  '(fixed-pitch ((t (:family "Terminus"))))
  '(font-lock-string-face ((((class color) (min-colors 88) (background light)) (:foreground "RosyBrown4"))))
+ '(rst-level-1-face ((t (:background "grey85" :foreground "black"))) t)
+ '(rst-level-2-face ((t (:background "grey78" :foreground "black"))) t)
  '(sh-heredoc ((((class color) (background light)) (:foreground "tan4")))))

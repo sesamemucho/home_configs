@@ -112,6 +112,27 @@
 (defvar org-deadline-warning-days 14)
 (defvar org-fast-tag-selection-single-key (quote expert))
 (defvar org-remember-store-without-prompt t)
+;;http://www.emacswiki.org/emacs/RememberMode#toc8
+;;If you are, like me, missing the function org-remember-insinuate, try the following
+
+(setq remember-annotation-functions '(org-remember-annotation))
+(setq remember-handler-functions '(org-remember-handler))
+(add-hook 'remember-mode-hook 'org-remember-apply-template)
+
+(defadvice remember-other-frame (around remember-frame-parameters activate)
+  "Set some frame parameters for the remember frame."
+  (let ((default-frame-alist (append
+    			      '(
+    				(name . "*Remember*")
+    				(width . 132)
+    				(height . 10)
+    				(vertical-scroll-bars . nil)
+    				(menu-bar-lines . 0)
+    				(tool-bar-lines . 0)
+    				)
+    			      default-frame-alist)))
+    ad-do-it
+    ))
 
 ;; I want to be able to reset the following two variables during runtime.
 (defvar org-remember-templates)
